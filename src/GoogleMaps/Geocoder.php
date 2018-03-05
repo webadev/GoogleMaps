@@ -9,7 +9,7 @@
  */
 namespace GoogleMaps;
 
-use Zend\Stdlib\Hydrator\ArraySerializable;
+use Zend\Hydrator\ArraySerializable;
 use Zend\Debug;
 use Zend\Json\Json;
 use Zend\Http\Client as HttpClient;
