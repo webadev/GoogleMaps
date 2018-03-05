@@ -2,7 +2,7 @@
 /**
  * This file is part of Geoxygen
  *
- * (c) 2012 Cédric DERUE <cedric.derue@gmail.com>
+ * (c) 2012 Cï¿½dric DERUE <cedric.derue@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -133,17 +133,25 @@ class Result implements ArraySerializableInterface
 	 * (non-PHPdoc)
 	 * @see \Zend\Stdlib\ArraySerializableInterface::getArrayCopy()
 	 */
-	public function getArrayCopy() 
+	public function getArrayCopy()
 	{
 		$addressComponents = array();
-		foreach ($this->getAddressComponents() as $addressComponent) {
-			$addressComponents[] = $addressComponent->getArrayCopy();
+		if(!is_null($this->getAddressComponents())) {
+			foreach ($this->getAddressComponents() as $addressComponent) {
+				$addressComponents[] = $addressComponent->getArrayCopy();
+			}
 		}
+		
+		$geometry = array();
+		if(!is_null($this->getGeometry())) {
+			$geometry = $this->getGeometry()->getArrayCopy();
+		}
+		
 		// Partial match ?
 		return array(
 			'address_components' => $addressComponents,
 			'formatted_address'  => $this->getFormattedAddress(),
-			'geometry' 			 => $this->getGeometry()->getArrayCopy(),
+			'geometry' 			 => $geometry,
 			'types' 			 => $this->getTypes(),
 		);
 	}
